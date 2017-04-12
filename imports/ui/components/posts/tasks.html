@@ -1,0 +1,26 @@
+<template name="App_todos">
+    <body>
+    <div class="container">
+        <header>
+            <h1>Todo List</h1>
+        </header>
+        <br>
+
+        <form class="new-task">
+            <input type="text" name="text" placeholder="Type to add new tasks"/>
+        </form>
+
+        <br>
+
+        <ul>
+            {{#each tasks}}
+                {{> task}}
+            {{/each}}
+        </ul>
+    </div>
+    </body>
+</template>
+
+<template name="task">
+    <li>{{text}}</li>
+</template>
