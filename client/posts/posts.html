@@ -1,0 +1,19 @@
+<template name="Posts">
+    <body>
+    <div class="container">
+        <header>
+            <h1>Todo List</h1>
+        </header>
+
+        <ul>
+            {{#each posts}}
+                {{> post}}
+            {{/each}}
+        </ul>
+    </div>
+    </body>
+</template>
+
+<template name="post">
+    <li>{{text}}</li>
+</template>
