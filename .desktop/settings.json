@@ -44,13 +44,13 @@
             "target": "squirrel"
         },
         "linux": {
-            "icon": ".desktop/assets/meteor.ico"
+            "icon": ".desktop/assets/"
         },
         "squirrelWindows": {
             "iconUrl": "https://github.com/wojtkowiak/meteor-desktop/blob/beta/scaffold/assets/meteor.ico?raw=true",
             "loadingGif": ".desktop/assets/loading.gif"
         },
-        "icon": ".desktop/assets/meteor.ico",
+        "icon": ".desktop/assets/",
         "appId": "meteor.app",
         "productName": "Simple Todo App",
         "compression": "maximum",
