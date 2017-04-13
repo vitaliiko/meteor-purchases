@@ -4,24 +4,24 @@
 
 import {assert} from 'meteor/practicalmeteor:chai';
 import {Tasks, addTask} from '../tasks';
+import StubCollections from 'meteor/hwillson:stub-collections';
 import {PublicationCollector} from 'meteor/johanbrook:publication-collector';
 
 describe('Tasks', function () {
     beforeEach(function () {
-        Tasks.remove({});
-        Tasks.insert({
-            text: "test data",
-            createdAt: new Date(),
-        });
+        StubCollections.stub(Tasks);
+    });
+
+    afterEach(function () {
+        StubCollections.restore();
     });
 
     describe('tasks.all', function () {
         it('get all tasks', function (done) {
-            const collector = new PublicationCollector();
-            collector.collect('tasks', (collections) => {
-                assert.equal(collections.tasks.length, 1);
-                done();
-            });
+            Tasks.insert({a: 'document'});
+
+            assert.equal(Tasks.find().count(), 1);
+            done();
         });
     });
 
@@ -29,8 +29,8 @@ describe('Tasks', function () {
         it('Insert tasks', function (done) {
             addTask.call({text: 'newTask'});
 
-            assert.equal(Tasks.find().count(), 2);
-            assert.equal(Tasks.find().fetch()[1].text, 'newTask');
+            assert.equal(Tasks.find().count(), 1);
+            assert.equal(Tasks.find().fetch()[0].text, 'newTask');
             done();
         });
     });
