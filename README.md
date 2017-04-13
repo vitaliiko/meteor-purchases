@@ -1,6 +1,5 @@
 To run web server:
 1. `npm install`
-1. `meteor npm install`
 1. `meteor`
 
 To run desktop app in dev mode
