@@ -3,7 +3,7 @@
 // https://guide.meteor.com/testing.html
 
 import {assert} from 'meteor/practicalmeteor:chai';
-import {Tasks} from '../tasks';
+import {Tasks, addTask} from '../tasks';
 import {PublicationCollector} from 'meteor/johanbrook:publication-collector';
 
 describe('Tasks', function () {
@@ -27,7 +27,7 @@ describe('Tasks', function () {
 
     describe('tasks.insert', function () {
         it('Insert tasks', function (done) {
-            Tasks.addTask('newTask');
+            addTask.call({text: 'newTask'});
 
             assert.equal(Tasks.find().count(), 2);
             assert.equal(Tasks.find().fetch()[1].text, 'newTask');
