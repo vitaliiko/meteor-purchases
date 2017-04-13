@@ -1,6 +1,15 @@
-import SimpleSchema from 'simpl-schema';
+import label = ts.ScriptElementKind.label;
 
-Todos = new Meteor.Collection('todos');
+class Todo {
+
+    @label('Name')
+    name: string;
+
+    whatTodo: string;
+
+}
+
+export const Todos = new Mongo.Collection<Todo>('todos');
 
 Todos.allow({
     insert: function () {

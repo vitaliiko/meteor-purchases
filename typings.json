@@ -1,0 +1,17 @@
+{
+  "globalDependencies": {
+    "aldeed:simple-schema": "github:meteor-typings/simple-schema",
+    "collection-fs": "github:meteor-typings/collection-fs#35f058eb5e3e5347fc29f737ae77d535c5542422",
+    "kadira:blaze-layout": "github:meteor-typings/blaze-layout#a28fe1542f67c4fdcebbba612c7e722f08973b59",
+    "kadira:flow-router": "github:meteor-typings/flow-router#972012feb2a23b0be17fd4340321a4268fa2f3b2",
+    "meteor": "registry:env/meteor",
+    "meteor-promise": "github:meteor-typings/meteor-promise#6df69b4bee095332dc0105bd9e31e6e7fcc174db",
+    "node": "registry:env/node",
+    "node-fibers": "registry:dt/node-fibers",
+    "promise": "registry:dt/promise#7.1.1+20160316171810"
+  },
+  "resolution": {
+    "main": "typings/main",
+    "browser": "typings/browser"
+  }
+}

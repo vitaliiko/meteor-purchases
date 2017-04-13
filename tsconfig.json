@@ -1,0 +1,17 @@
+{
+  "files": [
+    "server/publish.ts",
+    "server/main.ts",
+    "lib/routes.ts",
+    "collections/Todos.ts",
+    "client/todos/Todos.ts",
+    "typings/browser/globals/kadira:blaze-layout/index.d.ts",
+    "typings/browser/globals/kadira:flow-router/index.d.ts",
+    "node_modules/meteor-typings/1.2/out/main.d.ts",
+    "typings/browser/globals/aldeed:simple-schema/index.d.ts",
+    "../../.meteor/packages/barbatus_typescript-compiler/0.9.5/npm/node_modules/typescript/lib/typescriptServices.d.ts"
+  ],
+  "compilerOptions": {
+    "target": "ES6"
+  }
+}
