@@ -1,9 +1,11 @@
 <template name="MainLayout">
     <header>
         <h1>Purchases</h1>
-        <a href="/">Go home</a>
     </header>
     <main>
         {{> Template.dynamic template=main}}
     </main>
+    <footer>
+        {{> CloseButton}}
+    </footer>
 </template>
