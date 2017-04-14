@@ -22,6 +22,11 @@ TodoSchema = new SimpleSchema({
         type: String,
         optional: true
     },
+    isActive: {
+        type: Boolean,
+        optional: true,
+        defaultValue: false
+    },
     done: {
         type: Boolean,
         optional: true,
