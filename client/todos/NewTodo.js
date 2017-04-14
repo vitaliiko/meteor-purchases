@@ -5,10 +5,12 @@ Template.NewTodo.events({
         var todo = event.target;
         var name = todo.name.value;
         var whatTodo = todo.whatTodo.value;
+        var videoSource = todo.videoSource.value;
 
         Todos.insert({
             name,
-            whatTodo
+            whatTodo,
+            videoSource
         });
 
         todo.reset();

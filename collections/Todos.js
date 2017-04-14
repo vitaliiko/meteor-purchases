@@ -18,6 +18,10 @@ TodoSchema = new SimpleSchema({
     whatTodo: {
         type: String,
     },
+    videoSource: {
+        type: String,
+        optional: true
+    },
     done: {
         type: Boolean,
         optional: true,
