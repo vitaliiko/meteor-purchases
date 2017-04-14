@@ -42,3 +42,5 @@ omega:meteor-desktop-localstorage@=0.0.11
 practicalmeteor:mocha
 johanbrook:publication-collector
 hwillson:stub-collections
+dburles:factory
+meteorhacks:kadira
