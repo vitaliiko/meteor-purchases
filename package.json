@@ -9,7 +9,8 @@
     "babel-runtime": "^6.20.0",
     "bcrypt": "^1.0.2",
     "meteor-node-stubs": "~0.2.4",
-    "simpl-schema": "^0.2.3"
+    "simpl-schema": "^0.2.3",
+    "video.js": "^5.19.1"
   },
   "devDependencies": {
     "meteor-desktop": "0.6.1"

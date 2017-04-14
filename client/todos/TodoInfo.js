@@ -4,10 +4,20 @@ Template.TodoInfo.events({
     },
 
     'click .play': function() {
-        Meteor.call('todos.deactivate', {
+        Meteor.call('todos.activate', {
             todoId: this.todo._id
         }, () => {
-            Session.set('showVideo', true);
+            var options = {};
+
+            var player = videojs('todoDemo', options, function onPlayerReady() {
+                videojs.log('Your player is ready!');
+
+                this.play();
+
+                this.on('ended', function() {
+                    videojs.log('Awww...over so soon?!');
+                });
+            });
         });
     },
 
