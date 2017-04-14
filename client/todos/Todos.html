@@ -3,9 +3,9 @@
     <h3>TODO</h3>
     {{> NewTodo}}
     <ul>
-        {{#each todos}}
+        {{#each todo in todos}}
             <ol>
-                {{_id}} - {{name}} - {{whatTodo}}
+                {{> TodoInfo todo=todo}}
             </ol>
         {{else}}
             Nothing to do
