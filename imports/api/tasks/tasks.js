@@ -14,13 +14,15 @@ export const addTask = {
     validate(args) {
         new SimpleSchema({
             text: {type: String},
-            createdAt: {type: Date, required: false}
+            createdAt: {type: Date, required: false},
         }).validate(args)
     },
     run(args) {
         Tasks.insert({
             text: args.text,
-            createdAt: new Date()
+            createdAt: new Date(),
+            owner: Meteor.userId(),
+            username: Meteor.user().username,
         });
     },
     call(args, callback) {
