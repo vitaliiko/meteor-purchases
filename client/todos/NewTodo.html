@@ -1,5 +1,7 @@
 <template name="NewTodo">
-    <div>
-        {{> quickForm collection="Todos" id="insertTodoForm" type="insert"}}
-    </div>
+    <form id="newTodo">
+        <input type="text" name="name" placeholder="Name">
+        <input type="text" name="whatTodo" placeholder="What todo">
+        <input type="submit">
+    </form>
 </template>

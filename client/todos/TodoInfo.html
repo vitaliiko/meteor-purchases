@@ -1,4 +1,9 @@
 <template name="TodoInfo">
-    {{todo.name}} - {{todo.whatTodo}}
-    <a href="" class="delete">Delete</a>
+    <input type="checkbox" id="done" checked="{{todo.done}}">
+    <span class="{{#if todo.done}}done{{/if}}">
+        {{todo.name}} - {{todo.whatTodo}}
+    </span>
+    {{#if todo.done}}
+        <a href="" class="delete">Delete</a>
+    {{/if}}
 </template>
