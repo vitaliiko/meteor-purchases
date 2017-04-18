@@ -5,3 +5,7 @@ Meteor.publish('todos', function() {
 Meteor.publish('activeTodo', function() {
     return Todos.find({isActive: true});
 });
+
+Meteor.publish('playVideo', function () {
+    return Action.find({});
+});
