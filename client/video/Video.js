@@ -7,6 +7,13 @@ Template.Video.onCreated(function() {
 Template.Video.helpers({
     action: () => {
         var actions = Action.find({}).fetch();
+        videojs('video', {}, function onPlayerReady() {
+            if (actions[0].play) {
+                this.play();
+            } else {
+                this.pause();
+            }
+        });
         return actions[0];
     }
 });
