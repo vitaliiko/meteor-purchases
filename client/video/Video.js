@@ -3,6 +3,7 @@ Template.Video.onCreated(function () {
         this.subscribe('playVideo');
     });
     this.data.player = null;
+    this.data.videoTimestamp = null;
 });
 
 Template.Video.helpers({
@@ -37,19 +38,26 @@ function reloadPlayerState(player, actions) {
 }
 
 function initPlayer() {
-    return videojs('video')
+    return videojs('video').ready(function () {
+        this.on('timeupdate', function () {
+            synchronizeVideo(this.currentTime(), this);
+        })
+    })
 }
 
 function getPlayer() {
     return Template.instance().data.player;
 }
 
-var synchronizeVideo = function (videoTimestamp) {
-    if (videoTimestamp != getPlayer().currentTime().toFixed(0)) {
+function synchronizeVideo(videoTimestamp, player) {
+    if (!player) {
+        player = getPlayer();
+    }
+    if (videoTimestamp != player.currentTime().toFixed(0)) {
         if (Meteor.user()) {
-            Meteor.call('actions.updateVideoTimestamp', '4RQ6wY9LYKcdCSgJX', getPlayer().currentTime().toFixed(0));
+            Meteor.call('actions.updateVideoTimestamp', '4RQ6wY9LYKcdCSgJX', player.currentTime().toFixed(0));
         } else {
             getPlayer().currentTime(videoTimestamp)
         }
     }
-};
+}
