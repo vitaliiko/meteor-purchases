@@ -15,6 +15,9 @@ TodoSchema = new SimpleSchema({
     play: {
         type: Boolean,
         defaultValue: false
+    },
+    videoTimestamp: {
+        type: Number,
     }
 });
 
