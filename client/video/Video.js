@@ -39,6 +39,7 @@ function reloadPlayerState(player, actions) {
 
 function initPlayer() {
     return videojs('video').ready(function () {
+        this.preload(true);
         this.on('timeupdate', function () {
             synchronizeVideo(this.currentTime(), this);
         })
