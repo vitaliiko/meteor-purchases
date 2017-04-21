@@ -14,16 +14,16 @@ let clientClock = new ReactiveVar(new Date());
 let serverTimeOffset = new ReactiveVar(0);
 
 function setTimeOffset() {
+    let requestTime = (new Date).getTime();
     Meteor.call('getServerTime', (err, serverTime) => {
         let localTime = (new Date).getTime();
-        let timeOffset = serverTime - localTime;
-        console.log(timeOffset);
-        serverTimeOffset.set(timeOffset);
+        let offset = Math.round(((serverTime - requestTime) + (serverTime - localTime)) / 2);
+        serverTimeOffset.set(offset);
     })
 }
 
 function formatDate(date) {
-    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:${date.getMilliseconds()}`;
 }
 
 function getServerTime() {
