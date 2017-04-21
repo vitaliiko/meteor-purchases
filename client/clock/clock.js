@@ -6,7 +6,7 @@ Template.Clock.onCreated(() => {
     Meteor.setInterval(() => {
         serverClock.set(formatDate(new Date(getServerTime())));
         clientClock.set(formatDate(new Date()));
-    }, 1000);
+    }, 500);
 });
 
 let serverClock = new ReactiveVar(new Date());
@@ -16,9 +16,9 @@ let serverTimeOffset = new ReactiveVar(0);
 function setTimeOffset() {
     Meteor.call('getServerTime', (err, serverTime) => {
         let localTime = (new Date).getTime();
-        let serverOffset = serverTime - localTime;
-        console.log(serverOffset);
-        serverTimeOffset.set(serverOffset);
+        let timeOffset = serverTime - localTime;
+        console.log(timeOffset);
+        serverTimeOffset.set(timeOffset);
     })
 }
 
