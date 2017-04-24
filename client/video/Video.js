@@ -1,5 +1,3 @@
-var player = null;
-
 Template.Video.onCreated(function () {
     this.autorun(() => {
         this.subscribe('playVideo');
@@ -9,24 +7,23 @@ Template.Video.onCreated(function () {
 
 Template.Video.helpers({
     action: () => {
-        var actions = Action.find({}).fetch();
-        var lastActionVideoTimestamp = actions[0].videoTimestamp;
-        if (!getPlayer()) {
-            player = initPlayer();
-        }
+        let actions = Action.find({}).fetch();
+        let videoTimestamp = actions[0].videoTimestamp;
+        let timePass = Date.now() - actions[0].actionTimestamp;
+        initPlayer();
         reloadPlayerState(getPlayer(), actions);
-        synchronizeVideo(lastActionVideoTimestamp);
+        synchronizeVideo(videoTimestamp + timePass / 1000);
         return actions[0];
     }
 });
 
 Template.Video.events({
     'click .play': () => {
-        Meteor.call('actions.update', {_id: '4RQ6wY9LYKcdCSgJX', play: true, videoTimestamp: videojs('video').currentTime()});
+        Meteor.call('actions.update', {_id: '4RQ6wY9LYKcdCSgJX', play: true, videoTimestamp: getPlayer().currentTime()});
     },
 
     'click .stop': () => {
-        Meteor.call('actions.update', {_id: '4RQ6wY9LYKcdCSgJX', play: false, videoTimestamp: videojs('video').currentTime()});
+        Meteor.call('actions.update', {_id: '4RQ6wY9LYKcdCSgJX', play: false, videoTimestamp: getPlayer().currentTime()});
     }
 });
 
@@ -39,27 +36,19 @@ function reloadPlayerState(player, actions) {
 }
 
 function initPlayer() {
-    return videojs('video').ready(function () {
-        this.preload(true);
-        // this.on('timeupdate', function () {
-        //     synchronizeVideo(this.currentTime(), this);
-        // })
-    })
+    if (!getPlayer()) {
+        return videojs('video').ready(function() {
+            this.preload(true);
+        });
+    }
 }
 
 function getPlayer() {
     return videojs('video');
 }
 
-function synchronizeVideo(videoTimestamp, player) {
-    if (!player) {
-        player = getPlayer();
-    }
-    if (videoTimestamp != player.currentTime().toFixed(0)) {
-        if (Meteor.user()) {
-            Meteor.call('actions.updateVideoTimestamp', '4RQ6wY9LYKcdCSgJX', player.currentTime().toFixed(0));
-        } else {
-            getPlayer().currentTime(videoTimestamp)
-        }
+function synchronizeVideo(videoTimestamp) {
+    if (videoTimestamp != getPlayer().currentTime().toFixed(0)) {
+        getPlayer().currentTime(videoTimestamp);
     }
 }
