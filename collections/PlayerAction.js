@@ -19,7 +19,7 @@ TodoSchema = new SimpleSchema({
     videoTimestamp: {
         type: Number,
     },
-    timestamp: {
+    actionTimestamp: {
         type: Date
     }
 });
