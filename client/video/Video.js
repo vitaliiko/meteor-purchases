@@ -1,8 +1,9 @@
+var player = null;
+
 Template.Video.onCreated(function () {
     this.autorun(() => {
         this.subscribe('playVideo');
     });
-    this.data.player = null;
     this.data.videoTimestamp = null;
 });
 
@@ -11,7 +12,7 @@ Template.Video.helpers({
         var actions = Action.find({}).fetch();
         var lastActionVideoTimestamp = actions[0].videoTimestamp;
         if (!getPlayer()) {
-            Template.instance().data.player = initPlayer();
+            player = initPlayer();
         }
         reloadPlayerState(getPlayer(), actions);
         synchronizeVideo(lastActionVideoTimestamp);
@@ -21,11 +22,11 @@ Template.Video.helpers({
 
 Template.Video.events({
     'click .play': () => {
-        Action.update({_id: '4RQ6wY9LYKcdCSgJX'}, {$set: {play: true}});
+        Meteor.call('actions.update', {_id: '4RQ6wY9LYKcdCSgJX', play: true});
     },
 
     'click .stop': () => {
-        Action.update({_id: '4RQ6wY9LYKcdCSgJX'}, {$set: {play: false}});
+        Meteor.call('actions.update', {_id: '4RQ6wY9LYKcdCSgJX', play: false});
     }
 });
 
@@ -46,7 +47,7 @@ function initPlayer() {
 }
 
 function getPlayer() {
-    return Template.instance().data.player;
+    return player;
 }
 
 function synchronizeVideo(videoTimestamp, player) {
