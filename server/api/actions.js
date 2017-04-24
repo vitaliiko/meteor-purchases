@@ -1,5 +1,4 @@
 import {Meteor} from 'meteor/meteor';
-import {Mongo} from 'meteor/mongo';
 
 Meteor.methods({
     'actions.activate'({actionId}) {
@@ -14,5 +13,11 @@ Meteor.methods({
 
     'actions.updateVideoTimestamp'(actionId, videoTimestamp) {
         Action.update({_id: actionId}, {$set: {videoTimestamp: videoTimestamp, timestamp: Date.now()}});
+    },
+
+    'actions.startPlay'(actionId) {
+        let startAt = new Date();
+        startAt.setSeconds(startAt.getSeconds() + 10);
+        Action.update({_id: actionId}, {$set: {play: true, startAt: startAt}});
     }
 });

@@ -21,6 +21,9 @@ TodoSchema = new SimpleSchema({
     },
     timestamp: {
         type: Date
+    },
+    startAt: {
+        type: Date
     }
 });
 

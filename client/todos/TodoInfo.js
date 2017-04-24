@@ -10,7 +10,7 @@ Template.TodoInfo.events({
             var options = {};
 
             var player = videojs('todoDemo', options, function onPlayerReady() {
-                videojs.log('Your player is ready!');
+                videojs.log('Your videoPlayer is ready!');
 
                 this.play();
 

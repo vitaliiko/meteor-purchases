@@ -1,9 +1,14 @@
-Template.Video.onCreated(function () {
+let videoPlayer = null;
+
+Template.Video.onCreated(function() {
     this.autorun(() => {
         this.subscribe('playVideo');
     });
     this.data.player = null;
     this.data.videoTimestamp = null;
+    Meteor.setInterval(() => {
+        Template.Video.__helpers.get('action').call();
+    }, 500)
 });
 
 Template.Video.helpers({
@@ -11,7 +16,7 @@ Template.Video.helpers({
         var actions = Action.find({}).fetch();
         var lastActionVideoTimestamp = actions[0].videoTimestamp;
         if (!getPlayer()) {
-            Template.instance().data.player = initPlayer();
+            videoPlayer = initPlayer();
         }
         reloadPlayerState(getPlayer(), actions);
         synchronizeVideo(lastActionVideoTimestamp);
@@ -21,7 +26,7 @@ Template.Video.helpers({
 
 Template.Video.events({
     'click .play': () => {
-        Action.update({_id: '4RQ6wY9LYKcdCSgJX'}, {$set: {play: true}});
+        Meteor.call('actions.startPlay', '4RQ6wY9LYKcdCSgJX');
     },
 
     'click .stop': () => {
@@ -30,24 +35,27 @@ Template.Video.events({
 });
 
 function reloadPlayerState(player, actions) {
-    if (actions[0].play) {
+    let currentTime = (new Date).getTime();
+    let startAt = (new Date(actions[0].startAt).getTime());
+    if (actions[0].play && startAt - currentTime < 1) {
         player.play();
-    } else {
+    }
+    if (!actions[0].play) {
         player.pause();
     }
 }
 
 function initPlayer() {
-    return videojs('video').ready(function () {
+    return videojs('video').ready(function() {
         this.preload(true);
-        this.on('timeupdate', function () {
+        this.on('timeupdate', function() {
             synchronizeVideo(this.currentTime(), this);
         })
     })
 }
 
 function getPlayer() {
-    return Template.instance().data.player;
+    return videoPlayer;
 }
 
 function synchronizeVideo(videoTimestamp, player) {
