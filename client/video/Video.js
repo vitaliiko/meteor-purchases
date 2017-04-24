@@ -4,7 +4,6 @@ Template.Video.onCreated(function () {
     this.autorun(() => {
         this.subscribe('playVideo');
     });
-    this.data.videoTimestamp = null;
 });
 
 Template.Video.helpers({
@@ -21,12 +20,9 @@ Template.Video.helpers({
 });
 
 Template.Video.events({
-    'click .play': () => {
-        Meteor.call('actions.update', {_id: '4RQ6wY9LYKcdCSgJX', play: true, videoTimestamp: videojs('video').currentTime()});
-    },
-
-    'click .stop': () => {
-        Meteor.call('actions.update', {_id: '4RQ6wY9LYKcdCSgJX', play: false, videoTimestamp: videojs('video').currentTime()});
+    'click .apply': () => {
+        var player = videojs('video');
+        Meteor.call('actions.update', {_id: '4RQ6wY9LYKcdCSgJX', play: !player.paused(), videoTimestamp: player.currentTime()});
     }
 });
 
@@ -41,9 +37,9 @@ function reloadPlayerState(player, actions) {
 function initPlayer() {
     return videojs('video').ready(function () {
         this.preload(true);
-        // this.on('timeupdate', function () {
-        //     synchronizeVideo(this.currentTime(), this);
-        // })
+        this.on('timeupdate', function () {
+            synchronizeVideo(this.currentTime(), this);
+        })
     })
 }
 
