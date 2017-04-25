@@ -1,3 +1,5 @@
+const actionId = '4RQ6wY9LYKcdCSgJX';
+
 let initFlag = false;
 let isLiveEditMode;
 let actions;
@@ -32,7 +34,7 @@ function applyChangesInAction(action) {
 
 Template.Video.events({
     'click .apply': () => {
-        applyState('4RQ6wY9LYKcdCSgJX');
+        applyState(actionId);
     },
     'change #isLiveEditMode': () => {
         isLiveEditMode = document.getElementById('isLiveEditMode').checked;
@@ -73,8 +75,9 @@ function initPlayer() {
         this.on('ended', function () {
             this.currentTime(0);
             this.play();
+
             Meteor.call('actions.update', {
-                _id: '4RQ6wY9LYKcdCSgJX',
+                _id: actionId,
                 play: true,
                 videoTimestamp: this.currentTime()
             });
@@ -85,7 +88,7 @@ function initPlayer() {
                 && this.currentTime().toFixed() != actions[0].videoTimestamp.toFixed()) { //prevent of start-stop loop when set current time to video
 
                 Meteor.call('actions.update', {
-                    _id: '4RQ6wY9LYKcdCSgJX',
+                    _id: actionId,
                     videoTimestamp: this.currentTime()
                 });
             }
@@ -94,7 +97,7 @@ function initPlayer() {
         this.on('click', function () {
             if (isLiveEditMode && !this.paused() != actions[0].play) {
                 Meteor.call('actions.update', {
-                    _id: '4RQ6wY9LYKcdCSgJX',
+                    _id: actionId,
                     play: !this.paused(),
                     videoTimestamp: this.currentTime()
                 });
