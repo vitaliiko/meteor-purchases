@@ -11,18 +11,24 @@ Template.Video.onCreated(function() {
 Template.Video.helpers({
     action: () => {
         actions = Action.find({}).fetch();
-        let videoTimestamp = actions[0].videoTimestamp;
-        let timePass = Date.now() - actions[0].actionTimestamp;
-        if (!initFlag) {
-            initPlayer();
-            initPlayerState(actions);
-            initFlag = true;
+        if (actions.length) {
+            applyChangesInAction(actions[0]);
+            return actions[0];
         }
-        reloadPlayerState(getPlayer(), actions);
-        synchronizeVideo(videoTimestamp + timePass / 1000);
-        return actions[0];
     }
 });
+
+function applyChangesInAction(action) {
+    let videoTimestamp = action.videoTimestamp;
+    let timePass = Date.now() - action.actionTimestamp;
+    if (!initFlag) {
+        initPlayer();
+        initPlayerState(action);
+        initFlag = true;
+    }
+    reloadPlayerState(getPlayer(), action);
+    synchronizeVideo(videoTimestamp + timePass / 1000);
+}
 
 Template.Video.events({
     'click .apply': () => {
@@ -42,16 +48,16 @@ function applyState(actionId) {
     });
 }
 
-function initPlayerState(actions) {
+function initPlayerState(action) {
     let player = getPlayer();
-    if (actions[0].play) {
-        player.currentTime(actions.videoTimestamp);
+    if (action.play) {
+        player.currentTime(action.videoTimestamp);
         player.play();
     }
 }
 
-function reloadPlayerState(player, actions) {
-    if (actions[0].play) {
+function reloadPlayerState(player, action) {
+    if (action.play) {
         player.play();
     } else {
         player.pause();
@@ -59,7 +65,10 @@ function reloadPlayerState(player, actions) {
 }
 
 function initPlayer() {
-    return getPlayer().ready(function() {
+    return videojs(
+        'video',
+        {controls: true, preload: true, width: 760, height: 330}
+    ).ready(function() {
         this.preload(true);
         this.on('ended', function () {
             this.currentTime(0);
@@ -91,7 +100,6 @@ function initPlayer() {
                 });
             }
         });
-
     })
 }
 
