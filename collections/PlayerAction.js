@@ -11,7 +11,7 @@ Action.allow({
     }
 });
 
-TodoSchema = new SimpleSchema({
+ActionSchema = new SimpleSchema({
     play: {
         type: Boolean,
         defaultValue: false
@@ -24,4 +24,4 @@ TodoSchema = new SimpleSchema({
     }
 });
 
-Action.attachSchema(TodoSchema);
+Action.attachSchema(ActionSchema);

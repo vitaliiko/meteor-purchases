@@ -1,11 +1,3 @@
-Meteor.publish('todos', function() {
-    return Todos.find({});
-});
-
-Meteor.publish('activeTodo', function() {
-    return Todos.find({isActive: true});
-});
-
-Meteor.publish('playVideo', function () {
+Meteor.publish('actions', function () {
     return Action.find({});
 });
