@@ -1,13 +1,14 @@
 <template name="MainLayout">
-    <header>
-        <h1>Screen Driver</h1>
-        {{> loginButtons}}
-    </header>
-    <main>
-        {{> Template.dynamic template=main}}
-    </main>
-    <footer>
-        {{> CloseButton}}
-        {{> ReloadButton}}
-    </footer>
+    <div class="content">
+        <header>
+            <h1>Screen Driver</h1>
+        </header>
+        <main>
+            {{> Template.dynamic template=main}}
+        </main>
+        <footer>
+            <!--{{> CloseButton}}-->
+            <!--{{> ReloadButton}}-->
+        </footer>
+    </div>
 </template>

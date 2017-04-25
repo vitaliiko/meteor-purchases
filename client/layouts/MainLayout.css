@@ -1,0 +1,13 @@
+body {
+    background: rgb(222, 237, 235);
+}
+
+header {
+    text-align: center;
+}
+
+.content {
+    margin-left: auto;
+    margin-right: auto;
+    width: 760px;
+}
