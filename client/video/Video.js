@@ -6,15 +6,21 @@ let actions;
 
 Template.Video.onCreated(function() {
     this.autorun(() => {
-        this.subscribe('actions', () => {
-            actions = Action.find({}).fetch();
-            if (actions.length) {
-                applyChangesInAction(actions[0]);
-                return actions[0];
-            }
-        });
+        this.subscribe('actions', actionSubscriptionCallback);
     });
 });
+
+let actionSubscriptionCallback = function () {
+    let actionsCursor = Action.find({});
+    actions = actionsCursor.fetch();
+    applyChangesInAction(actions[0]);
+    actionsCursor.observeChanges({
+        changed() {
+            actions = actionsCursor.fetch();
+            applyChangesInAction(actions[0]);
+        }
+    })
+};
 
 Template.Video.helpers({
     isLoggedIn: () => {
@@ -27,15 +33,17 @@ function isLoggedIn() {
 }
 
 function applyChangesInAction(action) {
-    let videoTimestamp = action.videoTimestamp;
-    let timePass = Date.now() - action.actionTimestamp;
-    if (!initFlag) {
-        initPlayer();
-        initPlayerState(action);
-        initFlag = true;
+    if (action) {
+        let videoTimestamp = action.videoTimestamp;
+        let timePass = Date.now() - action.actionTimestamp;
+        if (!initFlag) {
+            initPlayer();
+            initPlayerState(action);
+            initFlag = true;
+        }
+        reloadPlayerState(getPlayer(), action);
+        synchronizeVideo(videoTimestamp + timePass / 1000);
     }
-    reloadPlayerState(getPlayer(), action);
-    synchronizeVideo(videoTimestamp + timePass / 1000);
 }
 
 Template.Video.events({
