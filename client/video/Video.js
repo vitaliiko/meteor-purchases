@@ -49,9 +49,10 @@ function reloadPlayerState(player, actions) {
 }
 
 function initPlayer() {
-    return getPlayer().ready(function() {
-        this.preload(true);
-    })
+    return videojs(
+        'video',
+        {controls: true, preload: true, width: 760, height: 330}
+    )
 }
 
 function getPlayer() {
