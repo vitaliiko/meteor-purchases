@@ -70,28 +70,28 @@ function initPlayer() {
                 videoTimestamp: this.currentTime()
             });
         });
-        this.on('timeupdate', function () {
-            if (isLiveEditMode && !this.paused() != actions[0].play) {
-                /*
-                * values from video.js - 18491
-                * NONE = 0;
-                * LOADING = 1;
-                * LOADED = 2;
-                * ERROR = 3;
-                */
-                if (this.readyState() == 1) {
-                    Meteor.call('actions.update', {
-                        _id: '4RQ6wY9LYKcdCSgJX',
-                        videoTimestamp: this.currentTime()});
-                } else {
-                    Meteor.call('actions.update', {
-                        _id: '4RQ6wY9LYKcdCSgJX',
-                        play: !this.paused(),
-                        videoTimestamp: this.currentTime()
-                    });
-                }
+
+        this.on('seeked', function () {
+            if (isLiveEditMode
+                && this.currentTime().toFixed() != actions[0].videoTimestamp.toFixed()) { //prevent of start-stop loop when set current time to video
+
+                Meteor.call('actions.update', {
+                    _id: '4RQ6wY9LYKcdCSgJX',
+                    videoTimestamp: this.currentTime()
+                });
             }
-        })
+        });
+
+        this.on('click', function () {
+            if (isLiveEditMode && !this.paused() != actions[0].play) {
+                Meteor.call('actions.update', {
+                    _id: '4RQ6wY9LYKcdCSgJX',
+                    play: !this.paused(),
+                    videoTimestamp: this.currentTime()
+                });
+            }
+        });
+
     })
 }
 
