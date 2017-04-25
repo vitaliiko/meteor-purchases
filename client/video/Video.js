@@ -1,4 +1,4 @@
-var player = null;
+var initFlag = false;
 
 Template.Video.onCreated(function () {
     this.autorun(() => {
@@ -10,8 +10,10 @@ Template.Video.helpers({
     action: () => {
         var actions = Action.find({}).fetch();
         var lastActionVideoTimestamp = actions[0].videoTimestamp;
-        if (!getPlayer()) {
-            player = initPlayer();
+        if (!initFlag) {
+            initPlayer();
+            initPlayerState(actions);
+            initFlag = true;
         }
         reloadPlayerState(getPlayer(), actions);
         synchronizeVideo(lastActionVideoTimestamp);
@@ -26,6 +28,14 @@ Template.Video.events({
     }
 });
 
+function initPlayerState(actions) {
+    var player = getPlayer();
+    if (actions[0].play) {
+        player.currentTime(actions.videoTimestamp);
+        player.play();
+    }
+}
+
 function reloadPlayerState(player, actions) {
     if (actions[0].play) {
         player.play();
@@ -37,9 +47,6 @@ function reloadPlayerState(player, actions) {
 function initPlayer() {
     return videojs('video').ready(function () {
         this.preload(true);
-        this.on('timeupdate', function () {
-            synchronizeVideo(this.currentTime(), this);
-        })
     })
 }
 
