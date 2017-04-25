@@ -1,4 +1,6 @@
 let initFlag = false;
+let isLiveEditMode;
+let actions;
 
 Template.Video.onCreated(function() {
     this.autorun(() => {
@@ -8,7 +10,7 @@ Template.Video.onCreated(function() {
 
 Template.Video.helpers({
     action: () => {
-        let actions = Action.find({}).fetch();
+        actions = Action.find({}).fetch();
         if (actions.length) {
             applyChangesInAction(actions[0]);
             return actions[0];
@@ -30,13 +32,21 @@ function applyChangesInAction(action) {
 
 Template.Video.events({
     'click .apply': () => {
-        let player = getPlayer();
-        Meteor.call('actions.update', {
-            _id: '4RQ6wY9LYKcdCSgJX', 
-            play: !player.paused(), 
-            videoTimestamp: player.currentTime()});
-    }
+        applyState('4RQ6wY9LYKcdCSgJX');
+    },
+    'change #isLiveEditMode': () => {
+        isLiveEditMode = document.getElementById('isLiveEditMode').checked;
+    },
 });
+
+function applyState(actionId) {
+    let player = getPlayer();
+    Meteor.call('actions.update', {
+        _id: actionId,
+        play: !player.paused(),
+        videoTimestamp: player.currentTime()
+    });
+}
 
 function initPlayerState(action) {
     let player = getPlayer();
@@ -58,7 +68,39 @@ function initPlayer() {
     return videojs(
         'video',
         {controls: true, preload: true, width: 760, height: 330}
-    )
+    ).ready(function() {
+        this.preload(true);
+        this.on('ended', function () {
+            this.currentTime(0);
+            this.play();
+            Meteor.call('actions.update', {
+                _id: '4RQ6wY9LYKcdCSgJX',
+                play: true,
+                videoTimestamp: this.currentTime()
+            });
+        });
+
+        this.on('seeked', function () {
+            if (isLiveEditMode
+                && this.currentTime().toFixed() != actions[0].videoTimestamp.toFixed()) { //prevent of start-stop loop when set current time to video
+
+                Meteor.call('actions.update', {
+                    _id: '4RQ6wY9LYKcdCSgJX',
+                    videoTimestamp: this.currentTime()
+                });
+            }
+        });
+
+        this.on('click', function () {
+            if (isLiveEditMode && !this.paused() != actions[0].play) {
+                Meteor.call('actions.update', {
+                    _id: '4RQ6wY9LYKcdCSgJX',
+                    play: !this.paused(),
+                    videoTimestamp: this.currentTime()
+                });
+            }
+        });
+    })
 }
 
 function getPlayer() {
