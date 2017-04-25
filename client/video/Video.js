@@ -51,6 +51,14 @@ function reloadPlayerState(player, actions) {
 function initPlayer() {
     return videojs('video').ready(function() {
         this.preload(true);
+        this.on('ended', function () {
+            this.currentTime(0);
+            this.play();
+            Meteor.call('actions.update', {
+                _id: '4RQ6wY9LYKcdCSgJX',
+                play: true,
+                videoTimestamp: this.currentTime()});
+        })
     })
 }
 
