@@ -6,19 +6,25 @@ let actions;
 
 Template.Video.onCreated(function() {
     this.autorun(() => {
-        this.subscribe('playVideo');
+        this.subscribe('playVideo', () => {
+            actions = Action.find({}).fetch();
+            if (actions.length) {
+                applyChangesInAction(actions[0]);
+                return actions[0];
+            }
+        });
     });
 });
 
 Template.Video.helpers({
-    action: () => {
-        actions = Action.find({}).fetch();
-        if (actions.length) {
-            applyChangesInAction(actions[0]);
-            return actions[0];
-        }
+    isLoggedIn: () => {
+        return isLoggedIn();
     }
 });
+
+function isLoggedIn() {
+    return Meteor.userId();
+}
 
 function applyChangesInAction(action) {
     let videoTimestamp = action.videoTimestamp;
@@ -69,7 +75,7 @@ function reloadPlayerState(player, action) {
 function initPlayer() {
     return videojs(
         'video',
-        {controls: true, preload: true, width: 760, height: 330}
+        {controls: isLoggedIn(), preload: true, width: 760, height: 330}
     ).ready(function() {
         this.preload(true);
         this.on('ended', function () {
@@ -83,7 +89,7 @@ function initPlayer() {
             });
         });
 
-        this.on('seeked', function () {
+        this.on('seeked', function() {
             if (isLiveEditMode
                 && this.currentTime().toFixed() != actions[0].videoTimestamp.toFixed()) { //prevent of start-stop loop when set current time to video
 
@@ -94,7 +100,7 @@ function initPlayer() {
             }
         });
 
-        this.on('click', function () {
+        this.on('click', function() {
             if (isLiveEditMode && !this.paused() != actions[0].play) {
                 Meteor.call('actions.update', {
                     _id: actionId,
