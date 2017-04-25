@@ -4,7 +4,7 @@ let actions;
 
 Template.Video.onCreated(function() {
     this.autorun(() => {
-        this.subscribe('playVideo');
+        this.subscribe('actions');
     });
 });
 

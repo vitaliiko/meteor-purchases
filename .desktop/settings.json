@@ -1,7 +1,7 @@
 {
-    "name": "Simple Todo App",
+    "name": "Screen Driver Prototype",
     "version": "0.0.1",
-    "projectName": "SimpleTodoApp",
+    "projectName": "ScreenDriverPrototype",
     "devTools": true,
     "devtron": true,
     "desktopHCP": true,
@@ -33,13 +33,13 @@
     },
     "dependencies": {},
     "packageJsonFields": {
-        "description": "Simple Todo App",
+        "description": "Screen Driver Prototype",
         "author": "",
         "private": true
     },
     "builderOptions": {
         "win": {
-            "title": "Simple Todo App",
+            "title": "Screen Driver Prototype",
             "authors": "",
             "target": "squirrel"
         },
@@ -52,7 +52,7 @@
         },
         "icon": ".desktop/assets/meteor.ico",
         "appId": "meteor.app",
-        "productName": "Simple Todo App",
+        "productName": "Screen Driver Prototype",
         "compression": "maximum",
         "mac": {
             "icon": ".desktop/assets/meteor.icns"
