@@ -1,9 +1,12 @@
 <template name="Video">
+    <span class="menu">{{> loginButtons}}</span>
     <a href="/">Go home</a>
-    <h3>Video</h3>
+    <br>
+    <span><h4>Play: {{action.play}}</h4></span>
     <a href="" class="apply">Apply</a>
-    <input type="checkbox"  id="isLiveEditMode" unchecked> Live edit mode
-    <h4>Play: {{action.play}}</h4>
+    <label><input type="checkbox"  id="isLiveEditMode" unchecked> Live edit mode</label>
+    <br>
+    <br>
     <video id="video" class="video-js vjs-default-skin">
         <source src="http://vjs.zencdn.net/v/oceans.mp4" type='video/mp4' />
     </video>
