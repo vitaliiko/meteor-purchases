@@ -24,7 +24,7 @@ Template.Video.helpers({
 
 Template.Video.events({
     'click .apply': () => {
-        let player = videojs('video');
+        let player = getPlayer();
         Meteor.call('actions.update', {
             _id: '4RQ6wY9LYKcdCSgJX', 
             play: !player.paused(), 
@@ -49,7 +49,7 @@ function reloadPlayerState(player, actions) {
 }
 
 function initPlayer() {
-    return videojs('video').ready(function() {
+    return getPlayer().ready(function() {
         this.preload(true);
     })
 }
