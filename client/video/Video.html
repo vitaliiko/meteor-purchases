@@ -1,14 +1,25 @@
 <template name="Video">
     <br>
     {{#if isLoggedIn}}
-        <a href="" class="apply button">Apply</a>
-        <label><input type="checkbox" id="isLiveEditMode" unchecked> Live edit mode</label>
+        <a href="" class="apply">Apply</a>
+        <label><input type="checkbox" id="live-edit-mode-checkbox" unchecked> Live edit mode</label>
+        <label><input type="checkbox" id="show-overlay-checkbox" unchecked> Show overlay</label>
+        <br>
+        <input id="message-input" placeholder="Type message here" size="85"> <button type="submit" id="submit-message-button">Submit</button>
     {{else}}
         <a href="" class="full-screen button">Full screen</a>
     {{/if}}
     <br>
     <br>
-    <video id="video" class="video-js vjs-default-skin">
-        <source src="http://vjs.zencdn.net/v/oceans.mp4" type='video/mp4' />
-    </video>
+    <div class="media-content">
+        <div class="video">
+            <video id="video" class="video-js vjs-default-skin">
+                <source src="http://vjs.zencdn.net/v/oceans.mp4" type='video/mp4'/>
+            </video>
+        </div>
+        <div id="overlay" class="overlay"></div>
+        <div id="message" class="message">
+            <h2>Announcing Summer of Tiësto 2017, a run of performances from the Dutch legend starting May 7 and running through September 24.</h2>
+        </div>
+    </div>
 </template>
