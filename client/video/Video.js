@@ -64,7 +64,19 @@ Template.Video.events({
             return isShowMessage ? 'visible' : 'hidden';
         }
     },
+    'click #submit-message-button': () => {
+        let messageInput = document.getElementById('message-input');
+        if (messageInput.value){
+            showMessage(actionId, message);
+        }
+    }
 });
+function showMessage(actionId, message) {
+    // Meteor.call('actions.update', {
+    //     _id: actionId,
+    //     videoTimestamp: player.currentTime()
+    // });
+}
 
 function applyState(actionId) {
     let player = getPlayer();
