@@ -4,7 +4,7 @@ let initFlag = false;
 let isLiveEditMode;
 let actions;
 
-Template.Video.onCreated(function() {
+Template.Video.onCreated(function () {
     this.autorun(() => {
         this.subscribe('actions', actionSubscriptionCallback);
     });
@@ -50,8 +50,19 @@ Template.Video.events({
     'click .apply': () => {
         applyState(actionId);
     },
-    'change #isLiveEditMode': () => {
-        isLiveEditMode = document.getElementById('isLiveEditMode').checked;
+    'change #live-edit-mode-checkbox': () => {
+        isLiveEditMode = document.getElementById('live-edit-mode-checkbox').checked;
+    },
+    'change #show-overlay-checkbox': () => {
+        let isChecked = document.getElementById('show-overlay-checkbox').checked;
+        let overlay = document.getElementById('overlay');
+        let message = document.getElementById('message');
+        overlay.style.visibility = getVisibilityState(isChecked);
+        message.style.visibility = getVisibilityState(isChecked);
+
+        function getVisibilityState(isShowMessage) {
+            return isShowMessage ? 'visible' : 'hidden';
+        }
     },
 });
 
@@ -84,7 +95,7 @@ function initPlayer() {
     return videojs(
         'video',
         {controls: isLoggedIn(), preload: true, width: 760, height: 330}
-    ).ready(function() {
+    ).ready(function () {
         this.preload(true);
         this.on('ended', function () {
             this.currentTime(0);
@@ -97,7 +108,7 @@ function initPlayer() {
             });
         });
 
-        this.on('seeked', function() {
+        this.on('seeked', function () {
             if (isLiveEditMode
                 && this.currentTime().toFixed() != actions[0].videoTimestamp.toFixed()) { //prevent of start-stop loop when set current time to video
 
@@ -108,7 +119,7 @@ function initPlayer() {
             }
         });
 
-        this.on('click', function() {
+        this.on('click', function () {
             if (isLiveEditMode && !this.paused() != actions[0].play) {
                 Meteor.call('actions.update', {
                     _id: actionId,
