@@ -1,11 +1,15 @@
 <template name="Video">
     <br>
     {{#if isLoggedIn}}
-        <a href="" class="apply">Apply</a>
+        <a href="" class="apply button">Apply</a>
         <label><input type="checkbox" id="live-edit-mode-checkbox" unchecked> Live edit mode</label>
-        <label><input type="checkbox" id="show-overlay-checkbox" unchecked> Show overlay</label>
-        <br>
-        <input id="message-input" placeholder="Type message here" size="85"> <button type="submit" id="submit-message-button">Submit</button>
+
+        <div class="message-form">
+            <label for="message-input">Type message here:</label>
+            <input id="message-input" type="text" size="70">
+            <a href="" class="button" id="submit-message-button">Submit</a>
+            <label><input type="checkbox" id="show-overlay-checkbox" unchecked> Show overlay</label>
+        </div>
     {{else}}
         <a href="" class="full-screen button">Full screen</a>
     {{/if}}

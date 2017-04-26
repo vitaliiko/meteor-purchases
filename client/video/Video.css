@@ -3,7 +3,7 @@
 }
 
 label {
-    color: white;
+    color: #af945c;
 }
 
 .media-content {
@@ -36,4 +36,23 @@ label {
     font-family: adobe-caslon-pro,serif;
     vertical-align: middle;
     display: table-cell;
+}
+
+.message-form {
+    margin-top: 25px;
+}
+
+.message-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.message-form input[type=text] {
+    height: 38px;
+    border: none;
+    margin-bottom: 5px;
+}
+
+.message-form input:focus {
+    outline: none;
 }
