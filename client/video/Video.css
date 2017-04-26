@@ -1,3 +1,31 @@
 .menu {
     text-align: center;
 }
+
+.media-content {
+    height: 330px;
+    width: 760px;
+}
+
+.video, .overlay {
+    position: absolute;
+    display: table;
+}
+
+.media-content .overlay {
+    width: inherit;
+    height: inherit;
+    background-color: #0e0529;
+    opacity: 0.7;
+}
+
+.message {
+    position: relative;
+    width: inherit;
+    height: inherit;
+    color: white;
+    text-align: center;
+    font-family: adobe-caslon-pro,serif;
+    vertical-align: middle;
+    display: table-cell;
+}
