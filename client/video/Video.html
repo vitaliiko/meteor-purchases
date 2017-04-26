@@ -1,9 +1,11 @@
 <template name="Video">
+    <span class="menu">{{> loginButtons}}</span>
     <a href="/">Go home</a>
     <br>
     {{#if isLoggedIn}}
         <a href="" class="apply">Apply</a>
-        <label><input type="checkbox" id="isLiveEditMode" unchecked> Live edit mode</label>
+        <label><input type="checkbox" id="live-edit-mode-checkbox" unchecked> Live edit mode</label>
+        <label><input type="checkbox" id="show-overlay-checkbox" unchecked> Show overlay</label>
     {{/if}}
     <br>
     <br>
@@ -13,8 +15,8 @@
                 <source src="http://vjs.zencdn.net/v/oceans.mp4" type='video/mp4'/>
             </video>
         </div>
-        <div class="overlay"></div>
-        <div class="message">
+        <div id="overlay" class="overlay"></div>
+        <div id="message" class="message">
             <h2>Announcing Summer of Tiësto 2017, a run of performances from the Dutch legend starting May 7 and running through September 24.</h2>
         </div>
     </div>
