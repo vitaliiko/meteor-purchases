@@ -16,10 +16,6 @@ label {
     display: table;
 }
 
-.overlay, .message {
-    visibility: hidden;
-}
-
 .media-content .overlay {
     width: inherit;
     height: inherit;

@@ -1,4 +1,5 @@
 const actionId = '4RQ6wY9LYKcdCSgJX';
+const displayMessage = new ReactiveVar(false);
 
 let initFlag = false;
 let isLiveEditMode;
@@ -25,6 +26,10 @@ let actionSubscriptionCallback = function () {
 Template.Video.helpers({
     isLoggedIn: () => {
         return isLoggedIn();
+    },
+
+    displayMessage: () => {
+        return displayMessage.get();
     }
 });
 
@@ -55,14 +60,7 @@ Template.Video.events({
     },
     'change #show-overlay-checkbox': () => {
         let isChecked = document.getElementById('show-overlay-checkbox').checked;
-        let overlay = document.getElementById('overlay');
-        let message = document.getElementById('message');
-        overlay.style.visibility = getVisibilityState(isChecked);
-        message.style.visibility = getVisibilityState(isChecked);
-
-        function getVisibilityState(isShowMessage) {
-            return isShowMessage ? 'visible' : 'hidden';
-        }
+        displayMessage.set(isChecked);
     },
     'click #submit-message-button': () => {
         let messageInput = document.getElementById('message-input');
