@@ -53,6 +53,9 @@ Template.Video.events({
     'change #isLiveEditMode': () => {
         isLiveEditMode = document.getElementById('isLiveEditMode').checked;
     },
+    'click .full-screen': () => {
+        getPlayer().requestFullscreen();
+    }
 });
 
 function applyState(actionId) {

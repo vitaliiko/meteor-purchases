@@ -1,9 +1,10 @@
 <template name="Video">
-    <a href="/">Go home</a>
     <br>
     {{#if isLoggedIn}}
-        <a href="" class="apply">Apply</a>
+        <a href="" class="apply button">Apply</a>
         <label><input type="checkbox" id="isLiveEditMode" unchecked> Live edit mode</label>
+    {{else}}
+        <a href="" class="full-screen button">Full screen</a>
     {{/if}}
     <br>
     <br>
