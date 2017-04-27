@@ -14,6 +14,21 @@ a:focus {
     outline: none;
 }
 
+.logo {
+    letter-spacing: 12px;
+    font-size: 20px;
+    color: white;
+    text-transform: uppercase;
+}
+
+.logo-container {
+    margin: 30px 0;
+}
+
+.logo .driver {
+    color: #af945c;
+}
+
 .button {
     border: 2px solid #af945c;
     color: white;
