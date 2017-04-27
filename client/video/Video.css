@@ -75,6 +75,14 @@ label {
     outline: none;
 }
 
+.full-screen-button-container {
+    margin-bottom: 50px;
+}
+
 .full-screen.button {
     float: right;
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
 }
