@@ -1,0 +1,16 @@
+#carousel {
+    border:   1px solid black;
+    width:    400px;
+    height:    400px;
+    position: relative;
+    top:      100px;
+    left:     100px;
+}
+#carousel div {
+    width:    400px;
+    height:    400px;
+}
+
+.slick-prev:before, .slick-next:before {
+    color:    silver;
+}
