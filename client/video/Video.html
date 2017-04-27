@@ -21,12 +21,9 @@
                 <source src="http://vjs.zencdn.net/v/oceans.mp4" type='video/mp4'/>
             </video>
         </div>
-        {{#transition in="fadeIn" out="fadeOut"}}
-            {{#if displayMessage}}
-                <div id="overlay" class="overlay"></div>
-                <div id="message" class="message">
-                </div>
-            {{/if}}
-        {{/transition}}
+
+        <div id="overlay" class="overlay"></div>
+        <div id="message" class="message"></div>
+
     </div>
 </template>
