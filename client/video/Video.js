@@ -4,10 +4,12 @@ const displayMessage = new ReactiveVar(false);
 let initFlag = false;
 let isLiveEditMode;
 let actions;
+let events;
 
 Template.Video.onCreated(function () {
     this.autorun(() => {
         this.subscribe('actions', actionSubscriptionCallback);
+        this.subscribe('events', eventsSubscriptionCallback);
     });
 });
 
@@ -19,6 +21,19 @@ let actionSubscriptionCallback = function () {
         changed() {
             actions = actionsCursor.fetch();
             applyChangesInAction(actions[0]);
+        }
+    })
+};
+
+let eventsSubscriptionCallback = function () {
+    let eventsCursor = Event.find({});
+    events = eventsCursor.fetch();
+    eventsCursor.observeChanges({
+        added() {
+            events = eventsCursor.fetch();
+        },
+        changed() {
+            events = eventsCursor.fetch();
         }
     })
 };
@@ -61,23 +76,24 @@ Template.Video.events({
     'change #show-overlay-checkbox': () => {
         let isChecked = document.getElementById('show-overlay-checkbox').checked;
         displayMessage.set(isChecked);
+        showMessage('123', isChecked)
     },
     'click #submit-message-button': () => {
         let messageInput = document.getElementById('message-input');
-        if (messageInput.value){
-            showMessage(actionId, message);
+        if (messageInput.value) {
+            addMessage(actionId, messageInput.value, 10);
         }
     },
     'click .full-screen': () => {
         getPlayer().requestFullscreen();
     }
 });
-
-function showMessage(actionId, message) {
-    // Meteor.call('actions.update', {
-    //     _id: actionId,
-    //     videoTimestamp: player.currentTime()
-    // });
+function addMessage(actionId, message, duration) {
+    Meteor.call('events.insert.message', {
+        actionId: actionId,
+        message: message,
+        duration: duration,
+    });
 }
 
 function applyState(actionId) {
@@ -87,6 +103,49 @@ function applyState(actionId) {
         play: !player.paused(),
         videoTimestamp: player.currentTime()
     });
+}
+
+Meteor.setInterval(() => {
+    events.forEach((event) => {
+        if (isTimeToShowEvent(event)) {
+            switch (event.type) {
+                case 'message':
+                    showMessage(event.message, true);
+                    break;
+            }
+        }
+
+    });
+
+    if (!haveEventsToShow()) {
+        showMessage('', false);
+    }
+}, 1000);
+
+function showMessage(messageText, isChecked) {
+    let overlay = document.getElementById('overlay');
+    let message = document.getElementById('message');
+    overlay.style.visibility = getVisibilityState(isChecked);
+    message.style.visibility = getVisibilityState(isChecked);
+    message.innerHTML = '<h2>' + messageText + '</h2>';
+
+    function getVisibilityState(isShowMessage) {
+        return isShowMessage ? 'visible' : 'hidden';
+    }
+}
+
+function isTimeToShowEvent(event) {
+    return Math.floor(Date.now() / 1000) - (Math.floor(Date.parse(event.timestamp) / 1000) + event.duration) < 0
+}
+
+function haveEventsToShow() {
+    let haveEventsToShow = false;
+    events.forEach((event) =>{
+        if (isTimeToShowEvent(event)) {
+            haveEventsToShow = true;
+        }
+    });
+    return haveEventsToShow;
 }
 
 function initPlayerState(action) {

@@ -1,4 +1,8 @@
-To run web server:
+To install Meteor: 
+
+`curl https://install.meteor.com/ | sh`
+
+To run app:
 1. `npm install`
 1. `meteor`
 

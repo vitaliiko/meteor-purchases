@@ -55,7 +55,8 @@
         "productName": "Screen Driver Prototype",
         "compression": "maximum",
         "mac": {
-            "icon": ".desktop/assets/meteor.icns"
+            "icon": ".desktop/assets/meteor.icns",
+            "target": "dmg"
         },
         "dmg": {
             "icon": ".desktop/assets/meteor.icns",
