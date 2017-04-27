@@ -8,8 +8,8 @@ To run app:
 
 To run desktop app in dev mode
 1. `npm install -g electron`
-1. `meteor --mobile-server=localhost:3000`
-1. `npm run desktop`
+1. `meteor --mobile-server=localhost:3000` and keep it running
+1. On another terminal: `npm run desktop`
 
 To build desktop installer:
 

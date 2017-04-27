@@ -78,15 +78,11 @@ Template.Video.events({
     'change #live-edit-mode-checkbox': () => {
         isLiveEditMode = document.getElementById('live-edit-mode-checkbox').checked;
     },
-    'change #show-overlay-checkbox': () => {
-        let isChecked = document.getElementById('show-overlay-checkbox').checked;
-        displayMessage.set(isChecked);
-        showMessage('123', isChecked)
-    },
     'click #submit-message-button': () => {
-        let messageInput = document.getElementById('message-input');
-        if (messageInput.value) {
-            addMessage(actionId, messageInput.value, 10);
+        let message = document.getElementById('message-input').value;
+        let duration = document.getElementById('duration-input').value;
+        if (message && duration) {
+            addMessage(actionId, message, duration);
         }
     },
     'click .full-screen': () => {
