@@ -1,7 +1,12 @@
+var slides;
+
 Template.Slides.onRendered(() => {
-    $('#carousel').slick({
-        dots: true,
-        arrows: true
+    slides = $('#carousel');
+    slides.slick({
+        arrows: false,
+        autoplay: true,
+        autoplaySpeed: 5000,
+        speed: 500,
     });
 });
 
