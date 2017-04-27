@@ -17,7 +17,7 @@ label {
     display: table;
 }
 
-.media-content .overlay {
+.media-content .video-overlay .overlay {
     width: inherit;
     height: inherit;
     background-color: #0e0529;
@@ -39,8 +39,8 @@ label {
     position: absolute;
     top: 50%;
     left: 50%;
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     z-index: 2147483647;
     font-size: 14px;
 }
