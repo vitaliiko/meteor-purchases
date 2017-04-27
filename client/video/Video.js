@@ -1,5 +1,6 @@
 const actionId = '4RQ6wY9LYKcdCSgJX';
 const displayMessage = new ReactiveVar(false);
+const fullScreen = new ReactiveVar(false);
 
 let initFlag = false;
 let isLiveEditMode;
@@ -45,6 +46,10 @@ Template.Video.helpers({
 
     displayMessage: () => {
         return displayMessage.get();
+    },
+
+    fullScreen: () => {
+        return fullScreen.get();
     }
 });
 
@@ -201,6 +206,10 @@ function initPlayer() {
                 });
             }
         });
+
+        this.on('fullscreenchange', function () {
+            fullScreen.set(this.isFullscreen());
+        })
     })
 }
 

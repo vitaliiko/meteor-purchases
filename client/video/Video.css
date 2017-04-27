@@ -42,6 +42,11 @@ label {
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
     z-index: 2147483647;
+    font-size: 14px;
+}
+
+.video-overlay.full-screen {
+    font-size: 25px;
 }
 
 .message-form {
