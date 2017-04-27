@@ -7,6 +7,7 @@ label {
 }
 
 .media-content {
+    position: absolute;
     height: 330px;
     width: 760px;
 }
@@ -29,9 +30,18 @@ label {
     height: inherit;
     color: white;
     text-align: center;
-    font-family: adobe-caslon-pro,serif;
+    font-family: adobe-caslon-pro, serif;
     vertical-align: middle;
     display: table-cell;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    z-index: 2147483647;
 }
 
 .message-form {
@@ -51,4 +61,8 @@ label {
 
 .message-form input:focus {
     outline: none;
+}
+
+.full-screen.button {
+    float: right;
 }
