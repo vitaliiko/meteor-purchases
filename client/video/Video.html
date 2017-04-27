@@ -6,14 +6,13 @@
 
         <div class="message-form">
             <label for="message-input">Type message here:</label>
-            <input id="message-input" type="text" size="70">
+            <input id="message-input" type="text" size="60" placeholder="Message">
+            <input id="duration-input" type="number"  min="1" max="999" placeholder="Duration">
             <a href="" class="button" id="submit-message-button">Submit</a>
-            <label><input type="checkbox" id="show-overlay-checkbox" unchecked> Show overlay</label>
         </div>
     {{else}}
         <a href="" class="full-screen button">Full screen</a>
     {{/if}}
-    <br>
     <br>
     <div class="media-content">
         <div class="video">

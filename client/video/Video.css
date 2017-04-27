@@ -43,10 +43,14 @@ label {
     margin-bottom: 5px;
 }
 
-.message-form input[type=text] {
+.message-form input[type=text], input[type=number] {
     height: 38px;
     border: none;
     margin-bottom: 5px;
+}
+
+.message-form input[type=number] {
+    width: 70px;
 }
 
 .message-form input:focus {
