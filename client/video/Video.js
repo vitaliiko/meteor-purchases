@@ -1,5 +1,6 @@
 const actionId = '4RQ6wY9LYKcdCSgJX';
 const displayMessage = new ReactiveVar(false);
+const message = new ReactiveVar('');
 const fullScreen = new ReactiveVar(false);
 
 let initFlag = false;
@@ -50,6 +51,10 @@ Template.Video.helpers({
 
     fullScreen: () => {
         return fullScreen.get();
+    },
+
+    getMessage: () => {
+        return message.get();
     }
 });
 
@@ -124,15 +129,8 @@ Meteor.setInterval(() => {
 }, 1000);
 
 function showMessage(messageText, isChecked) {
-    let overlay = document.getElementById('overlay');
-    let message = document.getElementById('message');
-    overlay.style.visibility = getVisibilityState(isChecked);
-    message.style.visibility = getVisibilityState(isChecked);
-    message.innerHTML = '<h2>' + messageText + '</h2>';
-
-    function getVisibilityState(isShowMessage) {
-        return isShowMessage ? 'visible' : 'hidden';
-    }
+    displayMessage.set(isChecked);
+    message.set(messageText);
 }
 
 function isTimeToShowEvent(event) {
