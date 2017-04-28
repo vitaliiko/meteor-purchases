@@ -59,3 +59,7 @@ header {
     margin-right: auto;
     width: 760px;
 }
+
+#login-buttons {
+    color: #af945c;
+}
