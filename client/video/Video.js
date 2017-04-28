@@ -112,16 +112,15 @@ function applyState(actionId) {
 }
 
 Meteor.setInterval(() => {
-    // events.forEach((event) => {
-    //     if (isTimeToShowEvent(event)) {
-    //         switch (event.type) {
-    //             case 'message':
-    //                 showMessage(event.message, true);
-    //                 break;
-    //         }
-    //     }
-    //
-    // });
+    events.forEach((event) => {
+        if (isTimeToShowEvent(event)) {
+            switch (event.type) {
+                case 'message':
+                    showMessage(event.message, true);
+                    break;
+            }
+        }
+    });
 
     if (!haveEventsToShow()) {
         showMessage('', false);
@@ -139,11 +138,11 @@ function isTimeToShowEvent(event) {
 
 function haveEventsToShow() {
     let haveEventsToShow = false;
-    // events.forEach((event) =>{
-    //     if (isTimeToShowEvent(event)) {
-    //         haveEventsToShow = true;
-    //     }
-    // });
+    events.forEach((event) =>{
+        if (isTimeToShowEvent(event)) {
+            haveEventsToShow = true;
+        }
+    });
     return haveEventsToShow;
 }
 
