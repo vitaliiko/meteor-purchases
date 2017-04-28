@@ -75,6 +75,11 @@ label {
     outline: none;
 }
 
+.message-form .button {
+    position: relative;
+    top: 2px;
+}
+
 .full-screen-button-container {
     margin-bottom: 50px;
 }
